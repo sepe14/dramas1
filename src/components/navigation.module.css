@@ -1,0 +1,21 @@
+.fejlec {
+  background-color: black;
+  padding: 1rem 5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.fejlec ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0;
+}
+
+.fejlec li.active {
+  color: black;
+  background-color: var(--primary-light);
+}
