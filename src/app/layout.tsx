@@ -6,6 +6,8 @@ import styles from "./main.module.css";
 
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export const metadata: Metadata = {
   title: "Megnézett sorozatok listája",
@@ -27,7 +29,9 @@ export default function RootLayout({
     <html lang="hu">
       <body className={displayFont.variable}>
         <Navigation />
+
         <main className={styles.main}>{children}</main>
+
         <Footer />
       </body>
     </html>

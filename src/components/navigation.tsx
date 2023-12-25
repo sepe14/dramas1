@@ -5,7 +5,7 @@ export default function Navigation() {
   return (
     <nav className={styles.fejlec}>
       <Link href="..">
-        <h1>Mkegnézett sorozatok listája</h1>
+        <h1>Megnézett sorozatok listája</h1>
       </Link>
       <div>
         <ul>

@@ -29,8 +29,16 @@ h1 {
   border-bottom: 4px solid var(--primary-light);
 }
 
+h3 {
+  font-size: 20px;
+}
+
 h1,
 h2,
 h3 {
   font-family: var(--font-display);
+}
+
+.betoltes {
+  text-align: center;
 }

@@ -1,6 +1,7 @@
 import Image, { StaticImageData } from "next/image";
 import defaultImage from "../../public/default_poster.png";
 import styles from "./dramacards.module.css";
+import Link from "next/link";
 
 type DramaProps = {
   id: number;
@@ -30,12 +31,14 @@ export function DramaCards({
           <Image
             src={posterUrl}
             alt={`${name} posztere`}
-            width={200}
+            width={210}
             height={300}
           />
         </div>
         <div>
-          <h3>{name}</h3>
+          <Link href={`/dramas/${id}`}>
+            <h3>{name}</h3>
+          </Link>
           <p>{network}</p>
           <p>{year}</p>
           <p>{episodes}</p>
@@ -46,8 +49,8 @@ export function DramaCards({
         <Image
           src={posterUrl}
           alt={`${name} posztere`}
-          width={200}
-          height={300}
+          width={50}
+          height={100}
         />
       </div>
     </div>

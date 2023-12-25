@@ -4,3 +4,15 @@
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   gap: 15px;
 }
+
+@media screen and (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid .loading {
+  height: 310px;
+  background-color: gray;
+  width: 100%;
+}

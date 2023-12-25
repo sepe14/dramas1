@@ -1,3 +1,5 @@
+import GridSkeleton from "@/components/gridskeleton";
+
 export default function TestPage() {
-  return <p>Működik?</p>;
+  return <GridSkeleton />;
 }

@@ -1,5 +1,6 @@
 .card img {
   border-radius: 0.5rem;
+  object-fit: cover;
 }
 
 .card .rating,
