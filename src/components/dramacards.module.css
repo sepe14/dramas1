@@ -1,0 +1,46 @@
+.card img {
+  border-radius: 0.5rem;
+}
+
+.card .rating,
+.card img {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.card p,
+.card h3 {
+  text-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.card {
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 1em;
+}
+
+.outerCard {
+  overflow: hidden;
+  background-color: rgba(121, 121, 121, 0.1);
+  border-radius: 1rem;
+  transition: 0.3s;
+  height: min-content;
+}
+
+.background img {
+  filter: blur(14px) brightness(40%);
+  height: 35em;
+  width: 100%;
+  scale: 110%;
+}
+
+.background {
+  z-index: -1;
+  position: relative;
+  top: -400px;
+  height: 0;
+}

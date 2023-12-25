@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+}
+
+model actors {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(20)
+  nem       String?   @db.VarChar(10)
+  kor       DateTime? @db.Date
+  url       String?   @db.VarChar(30)
+  dramas    roles[]
+  titlesId  Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model titles {
+  id          Int        @id @default(autoincrement())
+  name        String     @unique() @db.VarChar(30)
+  network     String     @db.VarChar(10)
+  year        Int        
+  episodes    Int
+  poster      String     @default("default_poster.png")
+  viewingDate Int        
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime?   @updatedAt
+  actors      roles[]
+  creators    creators[]
+  categories  category[]
+  ratings     ratings[]
+}
+
+model roles {
+  dramaId Int
+  actorId Int
+  szerep  String @db.VarChar(10)
+  titles  titles @relation(fields: [dramaId], references: [id])
+  actors  actors @relation(fields: [actorId], references: [id])
+
+  @@id([dramaId, actorId])
+}
+
+
+model creators {
+  id        Int      @id @default(autoincrement())
+  dramaId   Int
+  name      String   @db.VarChar(25)
+  role      String   @db.VarChar(20)
+  dramas    titles[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model category {
+  id     Int      @id @default(autoincrement())
+  name   String
+  dramas titles[]
+}
+
+model users {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?  @updatedAt
+  ratings   ratings[]
+}
+
+model ratings {
+  id        Int      @id @default(autoincrement())
+  value     Float
+  usersId   Int
+  users     users    @relation(fields: [usersId], references: [id])
+  titles    titles   @relation(fields: [titlesId], references: [id])
+  titlesId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime? @updatedAt
+}

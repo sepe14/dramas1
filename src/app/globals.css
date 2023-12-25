@@ -22,10 +22,15 @@ a:focus {
 }
 
 h1 {
-  font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 28px;
   font-weight: bold;
   font-style: italic;
   margin: 0;
   border-bottom: 4px solid var(--primary-light);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
 }
