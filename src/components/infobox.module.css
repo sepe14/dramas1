@@ -1,0 +1,47 @@
+.infobox {
+  background: linear-gradient(110deg, #272727 0.06%, #171717);
+  box-shadow: var(--glow-inset);
+  padding: 2em;
+}
+
+.poster img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.stand {
+  box-shadow: var(--glow-inset);
+  padding: 2em;
+}
+
+.gridrendszer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 200px 300px 600px;
+  gap: 2rem;
+}
+
+.gridrendszer div {
+  overflow: hidden;
+  border-radius: var(--border-radius);
+}
+
+.ratingbox {
+  border-radius: var(--border-radius);
+  background: linear-gradient(110deg, #3d3d3d 0.06%, #1f1f1f);
+  box-shadow: var(--glow-inset);
+  padding: 1rem;
+}
+
+.ratingbox span:first-child {
+  font-weight: 700;
+  font-size: 30px;
+  margin-right: 2px;
+}
+
+.ratingbox span:nth-child(2) {
+  font-weight: 100;
+  font-size: 20px;
+  color: #a7a7a7;
+}

@@ -6,8 +6,11 @@ import styles from "./main.module.css";
 
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import Loading from "./loading";
+import UserProvider from "./user-provider";
+import UserList from "@/components/userlist";
+import { prisma } from "@/db";
 
 export const metadata: Metadata = {
   title: "Megnézett sorozatok listája",
@@ -20,18 +23,18 @@ const displayFont = Space_Mono({
   variable: "--font-display",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const Users = await prisma.users.findMany();
+
   return (
     <html lang="hu">
       <body className={displayFont.variable}>
         <Navigation />
-
-        <main className={styles.main}>{children}</main>
-
+        <UserProvider Users={Users}>{children}</UserProvider>
         <Footer />
       </body>
     </html>

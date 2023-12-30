@@ -1,4 +1,53 @@
 .main {
-  margin: 2rem;
+  margin: 1rem;
   padding-inline: 5%;
+}
+
+.userselect {
+  padding: 0.5rem 10%;
+  background-color: rgb(39, 39, 39);
+}
+
+.userselect ul {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+}
+
+.userselect li {
+  cursor: pointer;
+  background: rgb(78, 78, 78);
+  background: radial-gradient(circle, rgb(65, 65, 65) 0%, rgb(53, 53, 53) 100%);
+  padding: 0.4rem;
+  margin-left: 0.3rem;
+  border-radius: 0.3rem;
+  font-size: 12px;
+  box-shadow: var(--glow-inset);
+  width: 70px;
+  display: flex;
+  align-items: center;
+}
+
+.userselect li:hover {
+  background: radial-gradient(
+    circle,
+    rgb(117, 117, 117) 0%,
+    rgb(90, 90, 90) 100%
+  );
+}
+
+.selected {
+  border: solid white 1px;
+}
+
+.userselect div {
+  width: 5px;
+  height: 10px;
+  background-color: var(--primary-light);
+  display: block;
+}
+
+.userselect p {
+  margin: 0;
+  margin-left: 4px;
 }

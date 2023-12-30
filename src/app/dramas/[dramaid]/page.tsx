@@ -1,4 +1,12 @@
+import ActorListItem from "@/components/actorlistitem";
+import DramaInfobox from "@/components/dramainfobox";
+import DramaPoster from "@/components/dramaposter";
 import { prisma } from "@/db";
+
+import styles from "../../../components/infobox.module.css";
+
+import Link from "next/link";
+import DramaRating from "@/components/dramarating";
 
 function getDrama(id: number) {
   return prisma.titles.findUnique({
@@ -6,6 +14,31 @@ function getDrama(id: number) {
       id: id,
     },
   });
+}
+
+function getActorsForDrama(id: number, szerep: string) {
+  return prisma.actors.findMany({
+    where: {
+      dramas: {
+        some: {
+          dramaId: id,
+          szerep,
+        },
+      },
+    },
+  });
+}
+
+async function getRating(id: number) {
+  const rating = await prisma.ratings.findMany({
+    where: {
+      titlesId: id,
+    },
+  });
+  return {
+    props: { rating },
+    tags: ["ratings"],
+  };
 }
 
 export default async function DramaPage({
@@ -20,16 +53,51 @@ export default async function DramaPage({
   }
 
   const titlesData = await getDrama(dramaid);
+  const mainActorData = await getActorsForDrama(dramaid, "main");
+  const spActorData = await getActorsForDrama(dramaid, "sp");
+  const ratingData = await getRating(dramaid);
+
+  const actorData = [
+    {
+      title: "Főszereplők",
+      class: "main-actors",
+      data: mainActorData,
+    },
+    {
+      title: "Mellékszereplők",
+      class: "sp-actors",
+      data: spActorData,
+    },
+  ];
 
   if (!titlesData) {
     return <h2>Nem található sorozat ezzel az azonosítóval!</h2>;
   }
-
+  console.log(ratingData);
   return (
-    <div>
-      <h2>{titlesData.name}</h2>
-      <p>{titlesData.network}</p>
-      <p>{titlesData.year}</p>
+    <div className={styles.gridrendszer}>
+      <DramaPoster {...titlesData} />
+      <DramaInfobox {...titlesData} />
+      <DramaRating dramaData={titlesData} ratings={ratingData.props.rating} />
+      <div className={`${styles.stand}`}>
+        <h3>Alkotók</h3>
+        <ul>
+          <li>Név Név</li>
+          <li>Név Név</li>
+          <li>Név Név</li>
+          <li>Név Név</li>
+        </ul>
+      </div>
+      {actorData.map((data) => (
+        <div key={data.class} className={`${data.class} ${styles.stand}`}>
+          <h3>{data.title}</h3>
+          <ul>
+            {data.data.map((actor) => (
+              <ActorListItem key={actor.id} {...actor} />
+            ))}
+          </ul>
+        </div>
+      ))}
     </div>
   );
 }
