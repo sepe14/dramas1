@@ -1,0 +1,97 @@
+.infobox {
+  background: linear-gradient(110deg, #272727 0.06%, #171717);
+  box-shadow: var(--glow-inset);
+  padding: 2em;
+}
+
+.poster img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.stand {
+  box-shadow: var(--glow-inset);
+  padding: 2em;
+}
+
+.gridrendszer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 400px 300px 600px;
+  gap: 2rem;
+}
+
+@media screen and (max-width: 800px) {
+  .gridrendszer {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.gridrendszer > div {
+  overflow: hidden;
+  border-radius: var(--border-radius);
+}
+
+.ratingbox {
+  border-radius: var(--border-radius);
+  background: linear-gradient(110deg, #3d3d3d 0.06%, #1f1f1f);
+  box-shadow: var(--glow-inset);
+  padding: 1rem;
+}
+
+.ratingbox span:first-child {
+  font-weight: 700;
+  font-size: 30px;
+  margin-right: 2px;
+}
+
+.ratingbox span:nth-child(2) {
+  font-weight: 100;
+  font-size: 20px;
+  color: #a7a7a7;
+}
+
+.usersrating {
+  display: flex;
+  align-items: center;
+}
+
+.usersrating > div {
+  height: 2em;
+  width: 2em;
+  background-color: hsl(0, 0%, 30%);
+  border-radius: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--glow-inset);
+  margin-left: 0.5rem;
+}
+
+.form {
+  margin-block: 0.3rem;
+  display: flex;
+  align-items: center;
+}
+
+.form input {
+  height: 2em;
+  box-shadow: var(--glow-inset);
+  background-color: hsl(0, 0%, 10%);
+  border-radius: 0.3rem;
+  padding: 0;
+  margin-inline: 0.4rem;
+  width: 5ch;
+  padding-left: 1ch;
+}
+
+.form button {
+  box-shadow: var(--glow-inset);
+  background-color: var(--primary-light);
+  border-radius: 0.3rem;
+  border: none;
+  color: black;
+  padding: 0.6rem;
+}

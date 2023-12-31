@@ -42,5 +42,5 @@ export default async function saveRating(
     });
   }
 
-  revalidatePath("/dramas/[dramaid]", "page");
+  revalidateTag("ratings");
 }

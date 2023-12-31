@@ -1,12 +1,12 @@
-import ActorListItem from "@/components/actorlistitem";
-import DramaInfobox from "@/components/dramainfobox";
-import DramaPoster from "@/components/dramaposter";
+import ActorListItem from "@/components/dramapage/actorlistitem";
+import DramaInfobox from "@/components/dramapage/dramainfobox";
+import DramaPoster from "@/components/dramapage/dramaposter";
 import { prisma } from "@/db";
 
-import styles from "../../../components/infobox.module.css";
+import styles from "../../../components/dramapage/infobox.module.css";
 
 import Link from "next/link";
-import DramaRating from "@/components/dramarating";
+import DramaRating from "@/components/dramapage/rating/dramarating";
 
 function getDrama(id: number) {
   return prisma.titles.findUnique({

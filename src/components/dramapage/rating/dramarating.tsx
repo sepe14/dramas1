@@ -2,7 +2,7 @@
 
 import { useContext } from "react";
 import { UserContext } from "@/app/user-provider";
-import styles from "./infobox.module.css";
+import styles from "../infobox.module.css";
 import Rating from "./currentrating";
 import UserRating from "./userrating";
 
@@ -39,19 +39,13 @@ export default function DramaRating({
 
   const ratingsData = Object.values(ratings);
 
-  console.log(ratingsData);
-
   const avarageRating =
     ratingsData.reduce((total, rating) => total + rating.value, 0) /
     ratingsData.length;
 
   const currentUser = useContext(UserContext);
 
-  console.log(currentUser);
-
   const currentUserRating = getCurrentRating(currentUser.id);
-
-  console.log(currentUserRating);
 
   return (
     <div className={styles.infobox}>

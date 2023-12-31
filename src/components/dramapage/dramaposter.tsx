@@ -1,6 +1,6 @@
 import styles from "./infobox.module.css";
 import Image from "next/image";
-import defaultImage from "../../public/default_poster.png";
+import defaultImage from "../../../public/default_poster.png";
 
 type DramaProps = {
   id: number;
