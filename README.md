@@ -11,7 +11,8 @@
   - felhasználó rendszer
     - [x] useContext hook
     - [ ] jelszó adminra váltáskor
-  - értékelések -[x] lehessen értékelni
+  - értékelések
+    - [x] lehessen értékelni
     - [ ] error handling, loading state
   - sorozat hozzáadása
     - [ ] sorozat adatok lekérése
