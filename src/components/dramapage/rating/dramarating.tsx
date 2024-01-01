@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "@/app/user-provider";
 import styles from "../infobox.module.css";
 import Rating from "./currentrating";
@@ -32,6 +32,8 @@ export default function DramaRating({
   dramaData: DramaProps;
   ratings: Rating;
 }) {
+  const [isLoading, setLoading] = useState(false);
+
   function getCurrentRating(id: number) {
     const rating = ratingsData.find((rating) => rating.usersId === id);
     return rating;
@@ -49,8 +51,14 @@ export default function DramaRating({
 
   return (
     <div className={styles.infobox}>
-      <Rating rating={avarageRating} length={ratingsData.length} />
+      <Rating
+        isLoading={isLoading}
+        setLoading={setLoading}
+        rating={avarageRating}
+        length={ratingsData.length}
+      />
       <UserRating
+        setLoading={setLoading}
         titlesId={dramaData.id}
         usersId={currentUser.id}
         rating={currentUserRating}

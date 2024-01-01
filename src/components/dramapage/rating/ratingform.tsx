@@ -1,9 +1,11 @@
 import SubmitButton from "@/components/submitbutton";
 import styles from "../infobox.module.css";
+import { Dispatch, SetStateAction } from "react";
 
 export default function RatingForm({
   rating,
   saveRatingId,
+  setLoading,
 }: {
   rating: number | undefined;
   saveRatingId: (formData: FormData) => Promise<
@@ -14,6 +16,7 @@ export default function RatingForm({
       }
     | undefined
   >;
+  setLoading: Dispatch<SetStateAction<boolean>>;
 }) {
   return (
     <form className={styles.form} action={saveRatingId}>
@@ -26,7 +29,7 @@ export default function RatingForm({
         min="1"
         max="10"
       />
-      <SubmitButton />
+      <SubmitButton setLoading={setLoading} />
     </form>
   );
 }

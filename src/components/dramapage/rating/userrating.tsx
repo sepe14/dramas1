@@ -2,7 +2,13 @@
 
 import { UserContext } from "@/app/user-provider";
 import saveRating from "@/app/dramas/[dramaid]/actions";
-import { useContext, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import ShowCurrentUsersRating from "./currentusersrating";
 import RatingForm from "./ratingform";
 
@@ -16,10 +22,12 @@ type Rating = {
 };
 
 export default function UserRating({
+  setLoading,
   titlesId,
   usersId,
   rating,
 }: {
+  setLoading: Dispatch<SetStateAction<boolean>>;
   titlesId: number;
   usersId: number;
   rating: Rating | undefined;
@@ -44,7 +52,12 @@ export default function UserRating({
           usersrating={rating.value}
         />
       ) : (
-        <RatingForm saveRatingId={saveRatingId} rating={undefined} key={key} />
+        <RatingForm
+          saveRatingId={saveRatingId}
+          rating={undefined}
+          key={key}
+          setLoading={setLoading}
+        />
       )}
 
       {isEditing && rating && (
@@ -52,6 +65,7 @@ export default function UserRating({
           saveRatingId={saveRatingId}
           rating={rating.value}
           key={key}
+          setLoading={setLoading}
         />
       )}
     </>
