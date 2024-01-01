@@ -1,6 +1,8 @@
 "use client";
 
+import { useContext, useEffect } from "react";
 import styles from "../infobox.module.css";
+import { UserContext } from "@/app/user-provider";
 
 export default function Rating({
   rating,
@@ -9,7 +11,12 @@ export default function Rating({
   rating: number;
   length: number;
 }) {
-  console.log(rating);
+  const { currentUser, setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    setUser(currentUser);
+  }, [rating]);
+
   return (
     <>
       <div className={styles.ratingbox}>

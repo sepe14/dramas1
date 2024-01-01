@@ -1,3 +1,4 @@
+import SubmitButton from "@/components/submitbutton";
 import styles from "../infobox.module.css";
 
 export default function RatingForm({
@@ -5,7 +6,14 @@ export default function RatingForm({
   saveRatingId,
 }: {
   rating: number | undefined;
-  saveRatingId: (formData: FormData) => Promise<void>;
+  saveRatingId: (formData: FormData) => Promise<
+    | {
+        errors: {
+          value?: string[] | undefined;
+        };
+      }
+    | undefined
+  >;
 }) {
   return (
     <form className={styles.form} action={saveRatingId}>
@@ -18,7 +26,7 @@ export default function RatingForm({
         min="1"
         max="10"
       />
-      <button type="submit">Mentés</button>
+      <SubmitButton />
     </form>
   );
 }

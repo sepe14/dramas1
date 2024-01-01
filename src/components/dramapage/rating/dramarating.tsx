@@ -43,7 +43,7 @@ export default function DramaRating({
     ratingsData.reduce((total, rating) => total + rating.value, 0) /
     ratingsData.length;
 
-  const currentUser = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
 
   const currentUserRating = getCurrentRating(currentUser.id);
 

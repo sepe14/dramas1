@@ -94,4 +94,10 @@
   border: none;
   color: black;
   padding: 0.6rem;
+  cursor: pointer;
+}
+
+.form button:disabled {
+  background-color: #272727;
+  color: white;
 }

@@ -18,10 +18,15 @@ const initialValue: User = {
   updatedAt: null,
 };
 
+const init2: any = "alma";
+
 import { createContext, useContext, useState } from "react";
 import styles from "./main.module.css";
 import { userAgentFromString } from "next/server";
-export const UserContext = createContext<User>(initialValue);
+export const UserContext = createContext({
+  currentUser: initialValue,
+  setUser: init2,
+});
 export default function UserProvider({
   children,
   Users,
@@ -52,6 +57,11 @@ export default function UserProvider({
             <li
               className={user === currentUser ? styles.selected : ""}
               key={user.id}
+              style={
+                user === currentUser
+                  ? { border: "1px solid white" }
+                  : { border: "none" }
+              }
               onClick={() => handleClick(user)}
             >
               <div></div>
@@ -60,7 +70,12 @@ export default function UserProvider({
           ))}
         </ul>
       </div>
-      <UserContext.Provider value={currentUser ? currentUser : initialValue}>
+      <UserContext.Provider
+        value={{
+          currentUser: currentUser ? currentUser : initialValue,
+          setUser: setUser,
+        }}
+      >
         <main className={styles.main}>{children}</main>
       </UserContext.Provider>
     </>
