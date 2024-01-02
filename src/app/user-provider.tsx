@@ -23,6 +23,7 @@ const init2: any = "alma";
 import { createContext, useContext, useState } from "react";
 import styles from "./main.module.css";
 import { userAgentFromString } from "next/server";
+import UserSelector from "@/components/userselector";
 export const UserContext = createContext({
   currentUser: initialValue,
   setUser: init2,
@@ -43,39 +44,15 @@ export default function UserProvider({
 }) {
   const [currentUser, setUser] = useState(Users.find((user) => user.id === 1));
 
-  function handleClick(user: User) {
-    if (user) {
-      setUser(user);
-    }
-  }
-
   return (
     <>
-      <div className={styles.userselect}>
-        <ul>
-          {Users.map((user) => (
-            <li
-              className={user === currentUser ? styles.selected : ""}
-              key={user.id}
-              style={
-                user === currentUser
-                  ? { border: "1px solid white" }
-                  : { border: "none" }
-              }
-              onClick={() => handleClick(user)}
-            >
-              <div></div>
-              <p>{user.name}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
       <UserContext.Provider
         value={{
           currentUser: currentUser ? currentUser : initialValue,
           setUser: setUser,
         }}
       >
+        <UserSelector Users={Users} />
         <main className={styles.main}>{children}</main>
       </UserContext.Provider>
     </>
