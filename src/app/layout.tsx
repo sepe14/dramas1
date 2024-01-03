@@ -7,7 +7,7 @@ import styles from "./main.module.css";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { Suspense, useState } from "react";
-import Loading from "./loading";
+
 import UserProvider from "./user-provider";
 import UserList from "@/components/userlist";
 import { prisma } from "@/db";

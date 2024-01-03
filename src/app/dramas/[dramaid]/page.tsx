@@ -7,6 +7,7 @@ import styles from "../../../components/dramapage/infobox.module.css";
 
 import Link from "next/link";
 import DramaRating from "@/components/dramapage/rating/dramarating";
+import { Suspense } from "react";
 
 function getDrama(id: number) {
   return prisma.titles.findUnique({
@@ -74,30 +75,37 @@ export default async function DramaPage({
     return <h2>Nem található sorozat ezzel az azonosítóval!</h2>;
   }
   console.log(ratingData);
-  return (
-    <div className={styles.gridrendszer}>
-      <DramaPoster {...titlesData} />
-      <DramaInfobox {...titlesData} />
-      <DramaRating dramaData={titlesData} ratings={ratingData.props.rating} />
-      <div className={`${styles.stand}`}>
-        <h3>Alkotók</h3>
-        <ul>
-          <li>Név Név</li>
-          <li>Név Név</li>
-          <li>Név Név</li>
-          <li>Név Név</li>
-        </ul>
-      </div>
-      {actorData.map((data) => (
-        <div key={data.class} className={`${data.class} ${styles.stand}`}>
-          <h3>{data.title}</h3>
+  return <p>asd</p>;
+  {
+    /*<div className={styles.gridrendszer}>
+      <Suspense fallback={<h3>Sorozat adatlap betöltése...</h3>}>
+        <DramaPoster {...titlesData} />
+        <DramaInfobox {...titlesData} />
+      </Suspense>
+      <Suspense fallback={<h3>Értékelés betöltése...</h3>}>
+        <DramaRating dramaData={titlesData} ratings={ratingData.props.rating} />
+      </Suspense>
+      <Suspense fallback={<h3>Színészek betöltése...</h3>}>
+        <div className={`${styles.stand}`}>
+          <h3>Alkotók</h3>
           <ul>
-            {data.data.map((actor) => (
-              <ActorListItem key={actor.id} {...actor} />
-            ))}
+            <li>Név Név</li>
+            <li>Név Név</li>
+            <li>Név Név</li>
+            <li>Név Név</li>
           </ul>
         </div>
-      ))}
-    </div>
-  );
+        {actorData.map((data) => (
+          <div key={data.class} className={`${data.class} ${styles.stand}`}>
+            <h3>{data.title}</h3>
+            <ul>
+              {data.data.map((actor) => (
+                <ActorListItem key={actor.id} {...actor} />
+              ))}
+            </ul>
+          </div>
+        ))}
+      </Suspense>
+    </div>*/
+  }
 }
