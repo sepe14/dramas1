@@ -1,10 +1,7 @@
-import { Suspense } from "react";
 import styles from "./page.module.css";
 import { DramaCards } from "@/components/dramacards";
 import { prisma } from "@/db";
 import { Prisma } from "@prisma/client";
-import Filters from "@/components/filters";
-import DramaBoard from "@/components/dramaboard";
 
 function getDramas(searchParams: {
   id: string | undefined;
@@ -30,7 +27,7 @@ function getDramas(searchParams: {
   });
 }
 
-export default async function Home({
+export default async function DramaBoard({
   searchParams,
 }: {
   searchParams: {
@@ -39,18 +36,13 @@ export default async function Home({
     network: string | undefined;
   };
 }) {
-  const distinctNetworks = await prisma.titles.findMany({
-    distinct: ["network"],
-    select: { network: true },
-  });
+  const dramas = await getDramas(searchParams);
 
   return (
-    <div>
-      <Filters networks={distinctNetworks} />
-
-      <Suspense fallback={<p>Betöltés...</p>}>
-        <DramaBoard searchParams={searchParams} />
-      </Suspense>
+    <div className={styles.grid}>
+      {dramas.map((drama) => (
+        <DramaCards key={drama.id} {...drama} />
+      ))}
     </div>
   );
 }

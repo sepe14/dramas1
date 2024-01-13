@@ -16,3 +16,13 @@
   background-color: gray;
   width: 100%;
 }
+
+.network {
+  display: flex;
+  margin: 0rem;
+}
+
+.network p {
+  padding: 0.5rem;
+  background-color: black;
+}
