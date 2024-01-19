@@ -2,20 +2,26 @@ import styles from "./page.module.css";
 import { DramaCards } from "@/components/dramacards";
 import { prisma } from "@/db";
 import { Prisma } from "@prisma/client";
+import DramaBoardViewer from "./dramaboardviewer";
 
 function getDramas(searchParams: {
   id: string | undefined;
-  orderByRelease: string | undefined;
+  orderBy: string | undefined;
+  order: string | undefined;
   network: string | undefined;
 }) {
+  const orderBy =
+    searchParams.orderBy === "year" || searchParams.orderBy === "viewingDate"
+      ? searchParams.orderBy
+      : "year";
+
+  const order =
+    searchParams.order === "asc" ? Prisma.SortOrder.asc : Prisma.SortOrder.desc;
+
   return prisma.titles.findMany({
     orderBy: [
       {
-        year: searchParams.orderByRelease
-          ? searchParams.orderByRelease === "asc"
-            ? Prisma.SortOrder.asc
-            : Prisma.SortOrder.desc
-          : "desc",
+        [orderBy]: order,
       },
       {
         name: "asc",
@@ -29,20 +35,18 @@ function getDramas(searchParams: {
 
 export default async function DramaBoard({
   searchParams,
+  networks,
 }: {
   searchParams: {
     id: string | undefined;
-    orderByRelease: string | undefined;
+    orderBy: string | undefined;
+    order: string | undefined;
     network: string | undefined;
+    selected: string | undefined;
   };
+  networks: { network: string }[];
 }) {
   const dramas = await getDramas(searchParams);
 
-  return (
-    <div className={styles.grid}>
-      {dramas.map((drama) => (
-        <DramaCards key={drama.id} {...drama} />
-      ))}
-    </div>
-  );
+  return <DramaBoardViewer dramas={dramas} networks={networks} />;
 }

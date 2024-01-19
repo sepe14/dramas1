@@ -17,12 +17,12 @@
   width: 100%;
 }
 
-.network {
-  display: flex;
-  margin: 0rem;
+.hideFilters {
+  backdrop-filter: blur(10px);
+  grid-row: 1/1;
+  grid-column: 1/-1;
 }
 
-.network p {
-  padding: 0.5rem;
-  background-color: black;
+.bar {
+  display: grid;
 }

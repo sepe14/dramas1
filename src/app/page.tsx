@@ -5,51 +5,36 @@ import { prisma } from "@/db";
 import { Prisma } from "@prisma/client";
 import Filters from "@/components/filters";
 import DramaBoard from "@/components/dramaboard";
-
-function getDramas(searchParams: {
-  id: string | undefined;
-  orderByRelease: string | undefined;
-  network: string | undefined;
-}) {
-  return prisma.titles.findMany({
-    orderBy: [
-      {
-        year: searchParams.orderByRelease
-          ? searchParams.orderByRelease === "asc"
-            ? Prisma.SortOrder.asc
-            : Prisma.SortOrder.desc
-          : "desc",
-      },
-      {
-        name: "asc",
-      },
-    ],
-    where: {
-      network: searchParams.network ? searchParams.network : undefined,
-    },
-  });
-}
+import GridSkeleton from "@/components/gridskeleton";
 
 export default async function Home({
   searchParams,
 }: {
   searchParams: {
     id: string | undefined;
-    orderByRelease: string | undefined;
+    orderBy: string | undefined;
+    order: string | undefined;
     network: string | undefined;
+    selected: string | undefined;
   };
 }) {
   const distinctNetworks = await prisma.titles.findMany({
     distinct: ["network"],
     select: { network: true },
   });
-
+  const keyString = `id=${searchParams.id}&network=${searchParams?.network}`;
   return (
     <div>
-      <Filters networks={distinctNetworks} />
-
-      <Suspense fallback={<p>Betöltés...</p>}>
-        <DramaBoard searchParams={searchParams} />
+      <Suspense
+        key={keyString}
+        fallback={
+          <>
+            <Filters selected={[]} networks={distinctNetworks} />
+            <GridSkeleton />
+          </>
+        }
+      >
+        <DramaBoard searchParams={searchParams} networks={distinctNetworks} />
       </Suspense>
     </div>
   );

@@ -1,6 +1,10 @@
-.card img {
+.boritokep img {
   border-radius: 0.5rem;
   object-fit: cover;
+}
+
+.boritokep {
+  grid-area: 1 / 1;
 }
 
 .card .rating,
@@ -45,4 +49,68 @@
   position: relative;
   top: -400px;
   height: 0;
+}
+
+.checkboxWrapper {
+  accent-color: var(--primary-light);
+  grid-area: 1 / 1;
+  z-index: 1;
+  margin: 0;
+  align-self: start;
+  justify-self: left;
+  margin-top: -0.5rem;
+  margin-left: -0.5rem;
+}
+
+.checkbox {
+  transform: scale(150%);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+
+.selected {
+  outline: 2px solid var(--primary-light);
+}
+
+.network {
+  display: flex;
+  margin: 0rem;
+  flex-wrap: wrap;
+}
+
+.network p {
+  padding: 0.5rem;
+  background-color: black;
+}
+
+.filters {
+  display: grid;
+  grid-row: 1/1;
+  grid-column: 1/-1;
+}
+
+.toolbarWrapper {
+  background-color: rgba(255, 255, 255, 0.623);
+  color: black;
+  padding: 0.3rem;
+  border-radius: var(--border-radius);
+  position: sticky;
+  top: 20px;
+  z-index: 2;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  backdrop-filter: blur(10px);
+  grid-row: 1/1;
+  grid-column: 1/-1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toolbarWrapper div {
+  background-color: white;
+  margin: 0.1rem;
+  padding: 0.4rem;
+  border-radius: var(--border-radius);
+  margin-inline: 1rem;
 }

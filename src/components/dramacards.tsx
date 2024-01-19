@@ -1,7 +1,10 @@
+"use client";
+
 import Image, { StaticImageData } from "next/image";
 import defaultImage from "../../public/default_poster.png";
 import styles from "./dramacards.module.css";
 import Link from "next/link";
+import { clsx } from "clsx";
 
 type DramaProps = {
   id: number;
@@ -21,13 +24,40 @@ export function DramaCards({
   episodes,
   poster,
   viewingDate,
-}: DramaProps) {
+  selected,
+  setSelected,
+}: DramaProps & any) {
   const posterUrl = poster === "default_poster.png" ? defaultImage : poster;
 
+  function handleSelecting(id: number) {
+    if (selected.includes(id)) {
+      setSelected(selected.filter((s: number) => s !== id));
+    } else {
+      setSelected([...selected, id]);
+    }
+  }
+
   return (
-    <div className={styles.outerCard}>
+    <div
+      className={clsx(
+        styles.outerCard,
+        selected.includes(id) && styles.selected
+      )}
+    >
       <div className={styles.card}>
-        <div>
+        <div className={styles.checkboxWrapper}>
+          {" "}
+          <input
+            onClick={() => handleSelecting(id)}
+            type="checkbox"
+            name=""
+            id=""
+            className={styles.checkbox}
+            checked={selected.includes(id)}
+          />
+        </div>
+
+        <div className={styles.boritokep}>
           <Image
             src={posterUrl}
             alt={`${name} posztere`}
@@ -43,6 +73,7 @@ export function DramaCards({
           <p>{year}</p>
           <p>{episodes}</p>
           <p>Megnézve: {viewingDate}</p>
+          <p>{id}</p>
         </div>
       </div>
       <div className={styles.background}>
