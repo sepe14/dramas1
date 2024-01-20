@@ -1,6 +1,8 @@
 .boritokep img {
   border-radius: 0.5rem;
   object-fit: cover;
+  width: 100%;
+  height: auto;
 }
 
 .boritokep {
@@ -24,7 +26,7 @@
 .card {
   padding: 1rem;
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 2fr;
   gap: 1em;
 }
 
@@ -109,6 +111,7 @@
   align-items: center;
   width: fit-content;
   place-self: center;
+  flex-wrap: wrap;
 }
 
 .toolbarWrapper > div {
