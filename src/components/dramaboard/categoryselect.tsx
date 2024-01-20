@@ -12,7 +12,7 @@ export default function CategorySelect({
     <div className={styles.categorySelect}>
       <ul>
         {categories.map((category) => (
-          <li>{category.name}</li>
+          <li key={category.id}>{category.name}</li>
         ))}
       </ul>
     </div>

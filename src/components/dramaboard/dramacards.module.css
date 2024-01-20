@@ -130,11 +130,13 @@
   margin: 0;
 }
 
-.categorySelect {
+div.categorySelect {
   position: absolute;
   background-color: white;
   padding: 1rem;
   margin: 0;
+  top: 40px;
+  left: 28%;
 }
 
 .categorySelect ul {

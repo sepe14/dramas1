@@ -32,9 +32,8 @@ export default function ToolBar({
       <div onClick={() => setIsOpen(!isOpen)}>
         <AddCategoryIcon />
         <p>Hozzáadás kategóriához</p>{" "}
-        {isOpen && <CategorySelect categories={categories} />}
       </div>
-
+      {isOpen && <CategorySelect categories={categories} />}
       <div onClick={() => alert("Na ilyet azért még nem")}>
         <DeleteIcon />
         <p>Törlés</p>
