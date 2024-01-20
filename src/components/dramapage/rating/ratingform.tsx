@@ -1,4 +1,4 @@
-import SubmitButton from "@/components/submitbutton";
+import SubmitButton from "@/components/dramapage/rating/submitbutton";
 import styles from "../infobox.module.css";
 import { Dispatch, SetStateAction } from "react";
 

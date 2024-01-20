@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { StaticImageData } from "next/image";
-import defaultImage from "../../public/default_poster.png";
+import defaultImage from "../../../public/default_poster.png";
 import styles from "./dramacards.module.css";
 import Link from "next/link";
 import { clsx } from "clsx";
@@ -53,6 +53,7 @@ export function DramaCards({
             name=""
             id=""
             className={styles.checkbox}
+            defaultChecked={selected.includes(id)}
             checked={selected.includes(id)}
           />
         </div>

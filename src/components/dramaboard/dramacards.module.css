@@ -60,12 +60,14 @@
   justify-self: left;
   margin-top: -0.5rem;
   margin-left: -0.5rem;
+  cursor: pointer;
 }
 
 .checkbox {
   transform: scale(150%);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
     rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  cursor: pointer;
 }
 
 .selected {
@@ -103,14 +105,46 @@
   grid-row: 1/1;
   grid-column: 1/-1;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
+  width: fit-content;
+  place-self: center;
 }
 
-.toolbarWrapper div {
-  background-color: white;
+.toolbarWrapper > div {
+  background-color: rgba(255, 255, 255, 0.76);
   margin: 0.1rem;
-  padding: 0.4rem;
-  border-radius: var(--border-radius);
+  padding: 0.6rem;
+  border-radius: 0.5rem;
   margin-inline: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+}
+
+.toolbarWrapper > div svg {
+  margin-right: 0.4rem;
+}
+
+.toolbarWrapper p {
+  margin: 0;
+}
+
+.categorySelect {
+  position: absolute;
+  background-color: white;
+  padding: 1rem;
+  margin: 0;
+}
+
+.categorySelect ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.categorySelect li {
+  background-color: rgb(240, 240, 240);
+  margin-bottom: 0.2rem;
+  padding: 0.3rem;
 }

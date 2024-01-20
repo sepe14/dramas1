@@ -9,6 +9,7 @@ import ToolBar from "./toolbar";
 export default function DramaBoardViewer({
   dramas,
   networks,
+  categories,
 }: {
   dramas: {
     id: number;
@@ -22,6 +23,10 @@ export default function DramaBoardViewer({
     updatedAt: Date | null;
   }[];
   networks: { network: string }[];
+  categories: {
+    id: number;
+    name: string;
+  }[];
 }) {
   const [selected, setSelected] = useState([]);
 
@@ -36,7 +41,11 @@ export default function DramaBoardViewer({
         {selected.length > 0 && <div className={styles.hideFilters}></div>}
         <Filters selected={selected} networks={networks} />
         {selected.length > 0 && (
-          <ToolBar resetSelected={resetSelected} selected={selected} />
+          <ToolBar
+            resetSelected={resetSelected}
+            selected={selected}
+            categories={categories}
+          />
         )}
         {dramas.map((drama) => (
           <DramaCards

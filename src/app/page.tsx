@@ -1,10 +1,10 @@
 import { Suspense } from "react";
 import styles from "./page.module.css";
-import { DramaCards } from "@/components/dramacards";
+import { DramaCards } from "@/components/dramaboard/dramacards";
 import { prisma } from "@/db";
 import { Prisma } from "@prisma/client";
-import Filters from "@/components/filters";
-import DramaBoard from "@/components/dramaboard";
+import Filters from "@/components/dramaboard/filters";
+import DramaBoard from "@/components/dramaboard/dramaboard";
 import GridSkeleton from "@/components/gridskeleton";
 
 export default async function Home({
@@ -22,6 +22,8 @@ export default async function Home({
     distinct: ["network"],
     select: { network: true },
   });
+
+  const categories = await prisma.category.findMany();
   const keyString = `id=${searchParams.id}&network=${searchParams?.network}`;
   return (
     <div>
@@ -34,7 +36,11 @@ export default async function Home({
           </>
         }
       >
-        <DramaBoard searchParams={searchParams} networks={distinctNetworks} />
+        <DramaBoard
+          searchParams={searchParams}
+          networks={distinctNetworks}
+          categories={categories}
+        />
       </Suspense>
     </div>
   );

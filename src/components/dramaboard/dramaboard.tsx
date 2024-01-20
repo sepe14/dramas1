@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import { DramaCards } from "@/components/dramacards";
+import { DramaCards } from "@/components/dramaboard/dramacards";
 import { prisma } from "@/db";
 import { Prisma } from "@prisma/client";
 import DramaBoardViewer from "./dramaboardviewer";
@@ -36,6 +36,7 @@ function getDramas(searchParams: {
 export default async function DramaBoard({
   searchParams,
   networks,
+  categories,
 }: {
   searchParams: {
     id: string | undefined;
@@ -45,8 +46,18 @@ export default async function DramaBoard({
     selected: string | undefined;
   };
   networks: { network: string }[];
+  categories: {
+    id: number;
+    name: string;
+  }[];
 }) {
   const dramas = await getDramas(searchParams);
 
-  return <DramaBoardViewer dramas={dramas} networks={networks} />;
+  return (
+    <DramaBoardViewer
+      dramas={dramas}
+      networks={networks}
+      categories={categories}
+    />
+  );
 }
