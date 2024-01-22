@@ -1,8 +1,6 @@
 .boritokep img {
   border-radius: 0.5rem;
   object-fit: cover;
-  width: 100%;
-  height: auto;
 }
 
 .boritokep {
@@ -26,8 +24,38 @@
 .card {
   padding: 1rem;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 1em;
+}
+
+.ratingCat {
+  grid-area: 1/3;
+  place-self: end;
+}
+
+.info {
+  grid-column: 2/4;
+  grid-row: 1;
+}
+
+.networkLabel {
+  padding: 0.4rem;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
+  width: fit-content;
+  margin-top: 5px;
+  font-size: 11px;
+}
+
+.averageRating {
+  padding: 0.4rem;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
+  width: fit-content;
+  margin-top: 5px;
+  font-size: 15px;
 }
 
 .outerCard {
@@ -133,13 +161,14 @@
   margin: 0;
 }
 
-div.categorySelect {
-  position: absolute;
+.categorySelect[open] {
+  border: var(--glow-inset);
+  border-radius: var(--border-radius);
   background-color: white;
+  color: black;
   padding: 1rem;
-  margin: 0;
-  top: 40px;
-  left: 28%;
+  display: flex;
+  flex-direction: column;
 }
 
 .categorySelect ul {
@@ -152,4 +181,39 @@ div.categorySelect {
   background-color: rgb(240, 240, 240);
   margin-bottom: 0.2rem;
   padding: 0.3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.categorySelect ul button {
+  margin-left: 5px;
+  width: 2em;
+}
+
+.categorySelect ul svg {
+  margin-left: 5px;
+  width: 10px;
+  height: 10px;
+}
+
+.categorySelect input {
+  width: 100%;
+}
+
+.categorySelect form {
+  width: max(100px);
+}
+
+.newCatBtn {
+  background-color: rgb(194, 194, 194);
+  margin-bottom: 0.2rem;
+  padding: 0.3rem;
+  text-align: center;
+}
+
+.categorySelect > button {
+  width: min-content;
+  margin-bottom: 0.5rem;
+  margin-left: auto;
 }

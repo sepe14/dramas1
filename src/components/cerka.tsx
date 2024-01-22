@@ -25,7 +25,6 @@ export default function Cerka({
           height="1em"
           viewBox="0 0 24 24"
         >
-          {" "}
           {!isEditing ? (
             <path
               fill="white"

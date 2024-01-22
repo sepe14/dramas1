@@ -12,6 +12,7 @@ export default function DramaBoardViewer({
   categories,
 }: {
   dramas: {
+    averageRating: number;
     id: number;
     name: string;
     network: string;
@@ -21,6 +22,10 @@ export default function DramaBoardViewer({
     viewingDate: number;
     createdAt: Date;
     updatedAt: Date | null;
+    categories: {
+      id: number;
+      name: string;
+    }[];
   }[];
   networks: { network: string }[];
   categories: {
@@ -28,7 +33,7 @@ export default function DramaBoardViewer({
     name: string;
   }[];
 }) {
-  const [selected, setSelected] = useState([]);
+  const [selected, setSelected] = useState<number[]>([]);
 
   function resetSelected() {
     setSelected([]);

@@ -30,6 +30,11 @@ function getDramas(searchParams: {
     where: {
       network: searchParams.network ? searchParams.network : undefined,
     },
+
+    include: {
+      ratings: true,
+      categories: true, // Include ratings relation
+    },
   });
 }
 
@@ -53,9 +58,16 @@ export default async function DramaBoard({
 }) {
   const dramas = await getDramas(searchParams);
 
+  const dramasWRating = dramas.map((drama) => {
+    const averageRating =
+      drama.ratings.reduce((sum, rating) => sum + rating.value, 0) /
+      drama.ratings.length;
+    return { ...drama, averageRating };
+  });
+
   return (
     <DramaBoardViewer
-      dramas={dramas}
+      dramas={dramasWRating}
       networks={networks}
       categories={categories}
     />

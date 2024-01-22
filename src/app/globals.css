@@ -92,3 +92,7 @@ p {
     clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
   }
 }
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.3);
+}

@@ -14,6 +14,11 @@ type DramaProps = {
   episodes: number;
   poster: string;
   viewingDate: number;
+  categories: {
+    id: number;
+    name: string;
+  }[];
+  averageRating: number;
 };
 
 export function DramaCards({
@@ -25,8 +30,10 @@ export function DramaCards({
   poster,
   viewingDate,
   selected,
+  averageRating,
+  categories,
   setSelected,
-}: DramaProps & any) {
+}: DramaProps & { selected: any; setSelected: any }) {
   const posterUrl = poster === "default_poster.png" ? defaultImage : poster;
 
   function handleSelecting(id: number) {
@@ -66,15 +73,22 @@ export function DramaCards({
             height={300}
           />
         </div>
-        <div>
+        <div className={styles.info}>
           <Link href={`/dramas/${id}`}>
             <h3>{name}</h3>
           </Link>
-          <p>{network}</p>
-          <p>{year}</p>
-          <p>{episodes}</p>
+          <p className={styles.networkLabel}>{network}</p>
+          <p>
+            {year} • {episodes} rész
+          </p>
+          <p></p>
           <p>Megnézve: {viewingDate}</p>
-          <p>{id}</p>
+        </div>
+        <div className={styles.ratingCat}>
+          <p className={styles.averageRating}>{averageRating}</p>
+          {categories.map((category) => (
+            <div key={category.id}>{category.name}</div>
+          ))}
         </div>
       </div>
       <div className={styles.background}>

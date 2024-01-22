@@ -1,6 +1,6 @@
 import { link } from "fs";
 import styles from "./dramacards.module.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CategorySelect from "./categoryselect";
 import {
   AddCategoryIcon,
@@ -14,13 +14,14 @@ export default function ToolBar({
   resetSelected,
   categories,
 }: {
-  selected: never[];
+  selected: number[];
   resetSelected: () => void;
   categories: {
     id: number;
     name: string;
   }[];
 }) {
+  const modalRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className={styles.toolbarWrapper}>
@@ -29,11 +30,21 @@ export default function ToolBar({
         <p>{selected.length} kijelölt sorozat</p>
       </div>
 
-      <div onClick={() => setIsOpen(!isOpen)}>
+      <div
+        onClick={() => {
+          setIsOpen(true);
+          console.log(isOpen);
+        }}
+      >
         <AddCategoryIcon />
         <p>Hozzáadás kategóriához</p>{" "}
       </div>
-      {isOpen && <CategorySelect categories={categories} />}
+      <CategorySelect
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        selected={selected}
+        categories={categories}
+      />
       <div onClick={() => alert("Na ilyet azért még nem")}>
         <DeleteIcon />
         <p>Törlés</p>
