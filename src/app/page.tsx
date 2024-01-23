@@ -1,8 +1,5 @@
 import { Suspense } from "react";
-import styles from "./page.module.css";
-import { DramaCards } from "@/components/dramaboard/dramacards";
 import { prisma } from "@/db";
-import { Prisma } from "@prisma/client";
 import Filters from "@/components/dramaboard/filters";
 import DramaBoard from "@/components/dramaboard/dramaboard";
 import GridSkeleton from "@/components/gridskeleton";
@@ -18,13 +15,18 @@ export default async function Home({
     selected: string | undefined;
   };
 }) {
+  // get list of unique networks
   const distinctNetworks = await prisma.titles.findMany({
     distinct: ["network"],
     select: { network: true },
   });
 
+  // get list of categories
   const categories = await prisma.category.findMany();
+
+  // generate new key on param change to rerender Suspense
   const keyString = `id=${searchParams.id}&network=${searchParams?.network}`;
+
   return (
     <div>
       <Suspense
