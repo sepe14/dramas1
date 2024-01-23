@@ -3,30 +3,16 @@
 import Filters from "./filters";
 import styles from "./page.module.css";
 import { DramaCards } from "./dramacards";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ToolBar from "./toolbar";
+import { DramasProp } from "./dramaboard";
 
 export default function DramaBoardViewer({
   dramas,
   networks,
   categories,
 }: {
-  dramas: {
-    averageRating: number;
-    id: number;
-    name: string;
-    network: string;
-    year: number;
-    episodes: number;
-    poster: string;
-    viewingDate: number;
-    createdAt: Date;
-    updatedAt: Date | null;
-    categories: {
-      id: number;
-      name: string;
-    }[];
-  }[];
+  dramas: DramasProp;
   networks: { network: string }[];
   categories: {
     id: number;

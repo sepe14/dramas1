@@ -4,16 +4,17 @@ import Filters from "@/components/dramaboard/filters";
 import DramaBoard from "@/components/dramaboard/dramaboard";
 import GridSkeleton from "@/components/gridskeleton";
 
+export type searchParamsProp = {
+  id: string | undefined;
+  orderBy: string | undefined;
+  order: string | undefined;
+  network: string | undefined;
+};
+
 export default async function Home({
   searchParams,
 }: {
-  searchParams: {
-    id: string | undefined;
-    orderBy: string | undefined;
-    order: string | undefined;
-    network: string | undefined;
-    selected: string | undefined;
-  };
+  searchParams: searchParamsProp;
 }) {
   // get list of unique networks
   const distinctNetworks = await prisma.titles.findMany({

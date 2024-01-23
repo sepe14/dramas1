@@ -18,7 +18,7 @@ type DramaProps = {
     id: number;
     name: string;
   }[];
-  averageRating: number;
+  averageRating?: number;
 };
 
 export function DramaCards({

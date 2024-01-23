@@ -1,19 +1,42 @@
-import styles from "./page.module.css";
-import { DramaCards } from "@/components/dramaboard/dramacards";
 import { prisma } from "@/db";
 import { Prisma } from "@prisma/client";
 import DramaBoardViewer from "./dramaboardviewer";
+import { searchParamsProp } from "@/app/page";
 
-function getDramas(searchParams: {
-  id: string | undefined;
-  orderBy: string | undefined;
-  order: string | undefined;
-  network: string | undefined;
-}) {
-  const orderBy =
-    searchParams.orderBy === "year" || searchParams.orderBy === "viewingDate"
-      ? searchParams.orderBy
-      : "year";
+export type DramasProp = {
+  id: number;
+  name: string;
+  network: string;
+  year: number;
+  episodes: number;
+  poster: string;
+  viewingDate: number;
+  createdAt: Date;
+  updatedAt: Date | null;
+  categories: {
+    id: number;
+    name: string;
+  }[];
+  ratings: {
+    id: number;
+    value: number;
+    usersId: number;
+    titlesId: number;
+    createdAt: Date;
+    updatedAt: Date | null;
+  }[];
+  averageRating?: number;
+}[];
+
+function getDramas(searchParams: searchParamsProp) {
+  let orderBy = "year";
+
+  if (
+    searchParams.orderBy === "year" ||
+    searchParams.orderBy === "viewingDate"
+  ) {
+    orderBy = searchParams.orderBy;
+  }
 
   const order =
     searchParams.order === "asc" ? Prisma.SortOrder.asc : Prisma.SortOrder.desc;
@@ -33,9 +56,19 @@ function getDramas(searchParams: {
 
     include: {
       ratings: true,
-      categories: true, // Include ratings relation
+      categories: true,
     },
   });
+}
+
+function addAvarageRating(dramas: DramasProp): DramasProp {
+  const dramaWithAvarage = dramas.map((drama) => {
+    const averageRating =
+      drama.ratings.reduce((sum, rating) => sum + rating.value, 0) /
+      drama.ratings.length;
+    return { ...drama, averageRating };
+  });
+  return dramaWithAvarage;
 }
 
 export default async function DramaBoard({
@@ -43,31 +76,22 @@ export default async function DramaBoard({
   networks,
   categories,
 }: {
-  searchParams: {
-    id: string | undefined;
-    orderBy: string | undefined;
-    order: string | undefined;
-    network: string | undefined;
-    selected: string | undefined;
-  };
+  searchParams: searchParamsProp;
   networks: { network: string }[];
   categories: {
     id: number;
     name: string;
   }[];
 }) {
+  // load the dramas based on the search parameters
   const dramas = await getDramas(searchParams);
 
-  const dramasWRating = dramas.map((drama) => {
-    const averageRating =
-      drama.ratings.reduce((sum, rating) => sum + rating.value, 0) /
-      drama.ratings.length;
-    return { ...drama, averageRating };
-  });
+  // calculate avarage ratings because it can't be done with prisma
+  const dramasWithAvarageRating = addAvarageRating(dramas);
 
   return (
     <DramaBoardViewer
-      dramas={dramasWRating}
+      dramas={dramasWithAvarageRating}
       networks={networks}
       categories={categories}
     />
