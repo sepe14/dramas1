@@ -1,14 +1,13 @@
 import Link from "next/link";
 
-type actors = {
-  id: number;
-  name: string;
-};
-
-export default function ActorListItem({ id, name }: actors) {
+export default function ActorListItem({
+  actor,
+}: {
+  actor: { name: string; id: number; szerep: string };
+}) {
   return (
-    <li key={id}>
-      <Link href={`/actors/${id}`}>{name}</Link>
+    <li key={actor.id}>
+      <Link href={`/actors/${actor.id}`}>{actor.name}</Link>
     </li>
   );
 }

@@ -1,29 +1,25 @@
-import ActorListItem from "@/components/dramapage/actorlistitem";
 import DramaInfobox from "@/components/dramapage/dramainfobox";
 import DramaPoster from "@/components/dramapage/dramaposter";
 import { prisma } from "@/db";
-
 import styles from "../../../components/dramapage/infobox.module.css";
-
-import Link from "next/link";
 import DramaRating from "@/components/dramapage/rating/dramarating";
 import { Suspense } from "react";
+import ActorList from "@/components/dramapage/actorlist";
 
 function getDrama(id: number) {
   return prisma.titles.findUnique({
     where: {
       id: id,
     },
-  });
-}
-
-function getActorsForDrama(id: number, szerep: string) {
-  return prisma.actors.findMany({
-    where: {
-      dramas: {
-        some: {
-          dramaId: id,
-          szerep,
+    include: {
+      ratings: true,
+      actors: {
+        include: {
+          actors: {
+            select: {
+              name: true,
+            },
+          },
         },
       },
     },
@@ -42,6 +38,32 @@ async function getRating(id: number) {
   };
 }
 
+function flattenActorData(
+  actorData: ({ actors: { name: string } } & {
+    dramaId: number;
+    actorId: number;
+    szerep: string;
+  })[]
+): {
+  name: string;
+  id: number;
+  szerep: string;
+}[] {
+  const flattenedActorData = [];
+
+  for (const actor of actorData) {
+    const flattenedActor = {
+      id: actor.actorId,
+      name: actor.actors.name,
+      szerep: actor.szerep,
+    };
+
+    flattenedActorData.push(flattenedActor);
+  }
+
+  return flattenedActorData;
+}
+
 export default async function DramaPage({
   params,
 }: {
@@ -54,58 +76,45 @@ export default async function DramaPage({
   }
 
   const titlesData = await getDrama(dramaid);
-  const mainActorData = await getActorsForDrama(dramaid, "main");
-  const spActorData = await getActorsForDrama(dramaid, "sp");
   const ratingData = await getRating(dramaid);
-
-  const actorData = [
-    {
-      title: "Főszereplők",
-      class: "main-actors",
-      data: mainActorData,
-    },
-    {
-      title: "Mellékszereplők",
-      class: "sp-actors",
-      data: spActorData,
-    },
-  ];
 
   if (!titlesData) {
     return <h2>Nem található sorozat ezzel az azonosítóval!</h2>;
   }
-  console.log(ratingData);
-  return <p>asd</p>;
-  {
-    /*<div className={styles.gridrendszer}>
-      <Suspense fallback={<h3>Sorozat adatlap betöltése...</h3>}>
-        <DramaPoster {...titlesData} />
-        <DramaInfobox {...titlesData} />
-      </Suspense>
+
+  const actorData = flattenActorData(titlesData.actors);
+
+  return (
+    <div className={styles.gridrendszer}>
+      <DramaPoster {...titlesData} />
+      <DramaInfobox {...titlesData} />
+
       <Suspense fallback={<h3>Értékelés betöltése...</h3>}>
         <DramaRating dramaData={titlesData} ratings={ratingData.props.rating} />
       </Suspense>
-      <Suspense fallback={<h3>Színészek betöltése...</h3>}>
-        <div className={`${styles.stand}`}>
-          <h3>Alkotók</h3>
-          <ul>
-            <li>Név Név</li>
-            <li>Név Név</li>
-            <li>Név Név</li>
-            <li>Név Név</li>
-          </ul>
-        </div>
-        {actorData.map((data) => (
-          <div key={data.class} className={`${data.class} ${styles.stand}`}>
-            <h3>{data.title}</h3>
-            <ul>
-              {data.data.map((actor) => (
-                <ActorListItem key={actor.id} {...actor} />
-              ))}
-            </ul>
-          </div>
-        ))}
+      <Suspense
+        fallback={
+          <>
+            <div className={styles.stand}>
+              <h3>Főszereplők betöltése...</h3>
+            </div>
+            <div className={styles.stand}>
+              <h3>Mellékszereplők betöltése...</h3>
+            </div>
+          </>
+        }
+      >
+        <ActorList actorData={actorData} />
       </Suspense>
-    </div>*/
-  }
+      <div className={`${styles.stand}`}>
+        <h3>Alkotók</h3>
+        <ul>
+          <li>Név Név</li>
+          <li>Név Név</li>
+          <li>Név Név</li>
+          <li>Név Név</li>
+        </ul>
+      </div>
+    </div>
+  );
 }
