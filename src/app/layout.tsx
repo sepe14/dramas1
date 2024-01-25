@@ -12,6 +12,16 @@ import UserProvider from "./user-provider";
 import UserList from "@/components/userlist";
 import { prisma } from "@/db";
 
+export type User = {
+  id: number;
+  name: string;
+  email: string;
+  isAdmin: boolean;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+};
+
+
 export const metadata: Metadata = {
   title: "Megnézett sorozatok listája",
   description: "Megnézett dél-koreai sorozatok listája",
@@ -20,7 +30,7 @@ export const metadata: Metadata = {
 const displayFont = Space_Mono({
   weight: ["700"],
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-display", // set it to a css variable
 });
 
 export default async function RootLayout({

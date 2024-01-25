@@ -1,14 +1,13 @@
 "use client";
 
-type User = {
-  id: number;
-  name: string;
-  email: string;
-  isAdmin: boolean;
-  createdAt: Date | null;
-  updatedAt: Date | null;
-};
+import { createContext, useContext, useState } from "react";
+import styles from "./main.module.css";
+import { userAgentFromString } from "next/server";
+import UserSelector from "@/components/userselector";
+import { User } from "@/app/layout.tsx"
 
+// TODO
+// resolve these initial values to someting more elegant
 const initialValue: User = {
   id: 100,
   name: "alma",
@@ -20,29 +19,23 @@ const initialValue: User = {
 
 const init2: any = "alma";
 
-import { createContext, useContext, useState } from "react";
-import styles from "./main.module.css";
-import { userAgentFromString } from "next/server";
-import UserSelector from "@/components/userselector";
+// UserContext contains the currentUser object and a setter function from a useState
 export const UserContext = createContext({
   currentUser: initialValue,
   setUser: init2,
 });
+
+
 export default function UserProvider({
   children,
   Users,
 }: {
   children: React.ReactNode;
-  Users: {
-    id: number;
-    name: string;
-    email: string;
-    isAdmin: boolean;
-    createdAt: Date | null;
-    updatedAt: Date | null;
-  }[];
+  Users: User[];
 }) {
-  const [currentUser, setUser] = useState(Users.find((user) => user.id === 1));
+  // set the user with id 1 as default
+  const initialUser = Users.find((user) => user.id === 1)
+  const [currentUser, setUser] = useState(initialUser);
 
   return (
     <>
