@@ -1,7 +1,7 @@
 import { UserContext } from "@/app/user-provider";
 import { useContext } from "react";
 import styles from "../app/main.module.css";
-import { User } from "@/app/layout.tsx"
+import { User } from "@/app/layout";
 
 export default function UserSelector({ Users }: { Users: User[] }) {
   const { currentUser, setUser } = useContext(UserContext);
