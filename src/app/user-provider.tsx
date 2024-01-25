@@ -4,15 +4,7 @@ import { createContext, useContext, useState } from "react";
 import styles from "./main.module.css";
 import { userAgentFromString } from "next/server";
 import UserSelector from "@/components/userselector";
-
-type User = {
-  id: number;
-  name: string;
-  email: string;
-  isAdmin: boolean;
-  createdAt: Date | null;
-  updatedAt: Date | null;
-};
+import { User } from "@/app/layout.tsx"
 
 const initialValue: User = {
   id: 100,

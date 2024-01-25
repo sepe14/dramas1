@@ -12,6 +12,16 @@ import UserProvider from "./user-provider";
 import UserList from "@/components/userlist";
 import { prisma } from "@/db";
 
+export type User = {
+  id: number;
+  name: string;
+  email: string;
+  isAdmin: boolean;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+};
+
+
 export const metadata: Metadata = {
   title: "Megnézett sorozatok listája",
   description: "Megnézett dél-koreai sorozatok listája",
