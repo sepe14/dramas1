@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 const displayFont = Space_Mono({
   weight: ["700"],
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-display", // set it to a css variable
 });
 
 export default async function RootLayout({

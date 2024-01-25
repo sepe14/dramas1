@@ -6,6 +6,8 @@ import { userAgentFromString } from "next/server";
 import UserSelector from "@/components/userselector";
 import { User } from "@/app/layout.tsx"
 
+// TODO
+// resolve these initial values to someting more elegant
 const initialValue: User = {
   id: 100,
   name: "alma",
@@ -17,7 +19,7 @@ const initialValue: User = {
 
 const init2: any = "alma";
 
-
+// UserContext contains the currentUser object and a setter function from a useState
 export const UserContext = createContext({
   currentUser: initialValue,
   setUser: init2,

@@ -7,6 +7,7 @@ export default function UserSelector({ Users }: { Users: User[] }) {
   const { currentUser, setUser } = useContext(UserContext);
 
   function handleClick(user: User) {
+    // set the clicked user as context
     if (user) {
       setUser(user);
     }
