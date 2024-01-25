@@ -9,6 +9,6 @@ function getActor(id: number) {
   }
 
 export default async function ActorPage({params}:{params: {actorid: string}}) {
-    actor = await getActor(Number(params.actorid))
+    const actor = await getActor(Number(params.actorid))
     return <div>{actor.name}</div>
 }
