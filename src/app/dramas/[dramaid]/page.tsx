@@ -92,20 +92,9 @@ export default async function DramaPage({
       <Suspense fallback={<h3>Értékelés betöltése...</h3>}>
         <DramaRating dramaData={titlesData} ratings={ratingData.props.rating} />
       </Suspense>
-      <Suspense
-        fallback={
-          <>
-            <div className={styles.stand}>
-              <h3>Főszereplők betöltése...</h3>
-            </div>
-            <div className={styles.stand}>
-              <h3>Mellékszereplők betöltése...</h3>
-            </div>
-          </>
-        }
-      >
-        <ActorList actorData={actorData} />
-      </Suspense>
+      <ActorList role={"main"} actorData={actorData} />
+      <ActorList role={"sp"} actorData={actorData} />
+
       <div className={`${styles.stand}`}>
         <h3>Alkotók</h3>
         <ul>
