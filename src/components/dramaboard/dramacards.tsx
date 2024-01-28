@@ -61,7 +61,7 @@ export function DramaCards({
             id=""
             className={styles.checkbox}
             defaultChecked={selected.includes(id)}
-            checked={selected.includes(id)}
+            readOnly
           />
         </div>
 
@@ -85,7 +85,9 @@ export function DramaCards({
           <p>Megnézve: {viewingDate}</p>
         </div>
         <div className={styles.ratingCat}>
-          <p className={styles.averageRating}>{averageRating}</p>
+          <p className={styles.averageRating}>
+            {averageRating ? averageRating : "Még nem értékelt"}
+          </p>
           {categories.map((category) => (
             <div key={category.id}>{category.name}</div>
           ))}
