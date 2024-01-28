@@ -11,15 +11,7 @@ import {
 } from "react";
 import ShowCurrentUsersRating from "./currentusersrating";
 import RatingForm from "./ratingform";
-
-type Rating = {
-  id: number;
-  value: number;
-  usersId: number;
-  titlesId: number;
-  createdAt: Date;
-  updatedAt: Date | null;
-};
+import { Rating } from "./dramarating";
 
 export default function UserRating({
   setLoading,
@@ -35,12 +27,13 @@ export default function UserRating({
   const [key, setKey] = useState(0);
   const [isEditing, setEditing] = useState(false);
 
-  // This effect runs after the page revalidates.
+  // reset and trigger reload after saving rating
   useEffect(() => {
-    setKey((prevKey) => prevKey + 1); // Update the key to trigger a re-render.
+    setKey((prevKey) => prevKey + 1);
     setEditing(false);
   }, [useContext(UserContext)]);
 
+  // bind parameters to the saveRatingId server action
   const saveRatingId = saveRating.bind(null, titlesId, usersId, rating);
 
   return (

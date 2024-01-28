@@ -2,20 +2,22 @@ import SubmitButton from "@/components/dramapage/rating/submitbutton";
 import styles from "../infobox.module.css";
 import { Dispatch, SetStateAction } from "react";
 
+type ServerAction = (formData: FormData) => Promise<
+  | {
+      errors: {
+        value?: string[] | undefined;
+      };
+    }
+  | undefined
+>;
+
 export default function RatingForm({
   rating,
   saveRatingId,
   setLoading,
 }: {
   rating: number | undefined;
-  saveRatingId: (formData: FormData) => Promise<
-    | {
-        errors: {
-          value?: string[] | undefined;
-        };
-      }
-    | undefined
-  >;
+  saveRatingId: ServerAction;
   setLoading: Dispatch<SetStateAction<boolean>>;
 }) {
   return (

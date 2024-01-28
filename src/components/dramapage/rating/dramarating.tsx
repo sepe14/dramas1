@@ -6,14 +6,14 @@ import styles from "../infobox.module.css";
 import Rating from "./currentrating";
 import UserRating from "./userrating";
 
-type Rating = {
+export type Rating = {
   id: number;
   value: number;
   usersId: number;
   titlesId: number;
   createdAt: Date;
   updatedAt: Date | null;
-}[];
+};
 
 type DramaProps = {
   id: number;
@@ -30,7 +30,7 @@ export default function DramaRating({
   ratings,
 }: {
   dramaData: DramaProps;
-  ratings: Rating;
+  ratings: Rating[];
 }) {
   const [isLoading, setLoading] = useState(false);
 

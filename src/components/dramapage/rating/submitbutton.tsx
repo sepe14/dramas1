@@ -6,6 +6,7 @@ export default function SubmitButton({
 }: {
   setLoading: Dispatch<SetStateAction<boolean>>;
 }) {
+  // useFormStatus hook returns if the form submit is pending
   const { pending } = useFormStatus();
   return (
     <button onClick={() => setLoading(true)} disabled={pending} type="submit">

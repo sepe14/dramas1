@@ -21,8 +21,9 @@ export default function ToolBar({
     name: string;
   }[];
 }) {
-  const modalRef = useRef(null);
+  // For the add category modal
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className={styles.toolbarWrapper}>
       <div>
@@ -32,12 +33,12 @@ export default function ToolBar({
 
       <div
         onClick={() => {
+          // add category button
           setIsOpen(true);
-          console.log(isOpen);
         }}
       >
         <AddCategoryIcon />
-        <p>Hozzáadás kategóriához</p>{" "}
+        <p>Hozzáadás kategóriához</p>
       </div>
       <CategorySelect
         isOpen={isOpen}
