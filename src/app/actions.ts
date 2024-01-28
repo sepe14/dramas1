@@ -1,7 +1,24 @@
 "use server";
 
+import { prisma } from "@/db";
+
 export async function saveCategories(category: number, selected: number[]) {
-  console.log(category, selected);
+  selected.forEach(async (dramaId) => {
+    try {
+      const updatedDrama = await prisma.titles.update({
+        where: { id: dramaId },
+        data: {
+          categories: {
+            connect: { id: category },
+          },
+        },
+      });
+
+      return updatedDrama;
+    } catch (error) {
+      // todo
+    }
+  });
   return "succes";
 }
 
