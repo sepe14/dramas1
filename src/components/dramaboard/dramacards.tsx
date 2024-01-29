@@ -60,8 +60,7 @@ export function DramaCards({
             name=""
             id=""
             className={styles.checkbox}
-            defaultChecked={selected.includes(id)}
-            readOnly
+            checked={selected.includes(id)}
           />
         </div>
 
@@ -81,16 +80,17 @@ export function DramaCards({
           <p>
             {year} • {episodes} rész
           </p>
-          <p></p>
           <p>Megnézve: {viewingDate}</p>
+          <ul>
+            {categories.map((category) => (
+              <li key={category.id}>{category.name}</li>
+            ))}
+          </ul>
         </div>
         <div className={styles.ratingCat}>
           <p className={styles.averageRating}>
             {averageRating ? averageRating : "Még nem értékelt"}
           </p>
-          {categories.map((category) => (
-            <div key={category.id}>{category.name}</div>
-          ))}
         </div>
       </div>
       <div className={styles.background}>

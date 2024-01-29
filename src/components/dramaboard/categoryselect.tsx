@@ -9,6 +9,8 @@ import {
 import styles from "./dramacards.module.css";
 import { saveCategories, saveNewCategory } from "@/app/actions";
 import { LoadingSpinner } from "../loading-spinner";
+import AddCategoryButton from "./addCategoryButton";
+import { useFormState } from "react-dom";
 
 export default function CategorySelect({
   categories,
@@ -24,14 +26,15 @@ export default function CategorySelect({
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }) {
-  // extend the categories with added key
-  const initialInfo = categories.map((category) => ({
-    id: category.id,
-    name: category.name,
-    added: false,
-  }));
+  const [message, formAction] = useFormState(saveNewCategory, null);
 
-  const [categoryList, setCategoryList] = useState(initialInfo);
+  const [categoryList, setCategoryList] = useState(
+    categories.map((category) => ({
+      id: category.id,
+      name: category.name,
+      added: false,
+    }))
+  );
   const [isPending, startTransition] = useTransition();
   const [addNewCat, setAddNewCat] = useState(false);
 
@@ -39,8 +42,14 @@ export default function CategorySelect({
 
   // reset categories if the selection changes
   useEffect(() => {
+    const initialInfo = categories.map((category) => ({
+      id: category.id,
+      name: category.name,
+      added: false,
+    }));
     setCategoryList(initialInfo);
-  }, [selected]);
+    setAddNewCat(false);
+  }, [selected, message]);
 
   // close or open the native html dialog element
   useEffect(() => {
@@ -117,10 +126,13 @@ export default function CategorySelect({
           <p>Új kategória</p>
         </div>
       ) : (
-        <form action={saveNewCategory}>
-          <input type="text" name="" id="" />
+        <form action={formAction}>
+          <input type="text" name="name" id="name" />
+          <label htmlFor="name"></label>
           <button onClick={() => setAddNewCat(false)}>Mégse</button>
-          <button type="submit">Kategória hozzáadása</button>
+          <div>
+            <AddCategoryButton />
+          </div>
         </form>
       )}
     </dialog>
